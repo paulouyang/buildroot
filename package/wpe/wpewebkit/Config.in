@@ -73,6 +73,11 @@ config BR2_PACKAGE_WPEWEBKIT_USE_WEB_AUDIO
 	help
 	  Enable Web Audio
 
+config BR2_PACKAGE_WPEWEBKIT_ENABLE_TV_CONTROL
+       bool "TV Control"
+       help
+          Enable TV Control
+
 menu "Encrypted Media Extensions options (EME)"
 
 config BR2_PACKAGE_WPEWEBKIT_USE_ENCRYPTED_MEDIA_V1
