@@ -23,8 +23,8 @@ menuconfig BR2_PACKAGE_WPEFRAMEWORK_SNAPSHOT
 	   WPE Platform Snapshot plugin
 
 menuconfig BR2_PACKAGE_WPEFRAMEWORK_PROVISIONING
-	bool "WPEFramework-Snapshot"
-
+	bool "WPEFramework-Provisioning"
+	select BR2_PACKAGE_LIBPROVISION
 	help
 	   WPE Platform Provisioning plugin
 
@@ -35,7 +35,7 @@ menuconfig BR2_PACKAGE_WPEFRAMEWORK_WEBKITBROWSER
 	   WPE Platform WebKitBrowser plugin
 
 menuconfig BR2_PACKAGE_WPEFRAMEWORK_DIALSERVER
-	bool "WPEFramework-WebKitBrowser"
+	bool "WPEFramework-DIALServer"
 
 	help
 	   WPE Platform DIALServer plugin
@@ -63,5 +63,11 @@ menuconfig BR2_PACKAGE_WPEFRAMEWORK_NETFLIX
 
 	help
 	   WPE Platform Netflix plugin
+
+menuconfig BR2_PACKAGE_WPEFRAMEWORK_WEBSERVER
+	bool "WPEFramework-WebServer"
+
+	help
+	   WPE Platform WebServer plugin
 
 
