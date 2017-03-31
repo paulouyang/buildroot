@@ -248,6 +248,21 @@ config BR2_PACKAGE_WEBBRIDGE_PLUGIN_OPENCDMI_AUTOSTART
         default y
 
 endif
+menuconfig BR2_PACKAGE_WEBBRIDGE_PLUGIN_TVCONTROL
+        bool "tvcontrol"
+        select BR2_PACKAGE_CPPSDK_PROCESS
+        default n
+        help
+            A Plugin to interact with TV data
+
+if BR2_PACKAGE_WEBBRIDGE_PLUGIN_TVCONTROL
+
+        config BR2_PACKAGE_WEBBRIDGE_PLUGIN_TVCONTROL_AUTOSTART
+        depends on BR2_PACKAGE_WEBBRIDGE_PLUGIN_TVCONTROL
+        bool "autostart"
+        default n
+
+endif
 
 menuconfig BR2_PACKAGE_WEBBRIDGE_PLUGIN_WEBKITBROWSER
 	bool "webkitbrowser"
