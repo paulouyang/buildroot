@@ -37,11 +37,15 @@ define KYLIN_GRAPHICS_INSTALL_SERVER_LIBS
 endef
 
 define KYLIN_GRAPHICS_INSTALL_HEADERS
+  $(INSTALL) -d -m 0755 $(1)/usr/include/GLES
   $(INSTALL) -d -m 0755 $(1)/usr/include/GLES2
+  $(INSTALL) -d -m 0755 $(1)/usr/include/GLES3
   $(INSTALL) -d -m 0755 $(1)/usr/include/KHR
   $(INSTALL) -d -m 0755 $(1)/usr/include/EGL 
   $(INSTALL) -m 0755 $(@D)/include/EGL/* ${1}/usr/include/EGL
+  $(INSTALL) -m 0755 $(@D)/include/GLES/* ${1}/usr/include/GLES
   $(INSTALL) -m 0755 $(@D)/include/GLES2/* ${1}/usr/include/GLES2
+  $(INSTALL) -m 0755 $(@D)/include/GLES3/* ${1}/usr/include/GLES3
   $(INSTALL) -m 0755 $(@D)/include/KHR/* ${1}/usr/include/KHR
   $(INSTALL) -m 0755 $(@D)/include/*.h ${1}/usr/include
 endef
