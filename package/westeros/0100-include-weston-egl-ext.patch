@@ -1,0 +1,73 @@
+diff --git a/westeros-compositor.cpp b/westeros-compositor.cpp
+index 5efc2dc..a440311 100644
+--- a/westeros-compositor.cpp
++++ b/westeros-compositor.cpp
+@@ -42,6 +42,7 @@
+ #if defined (WESTEROS_HAVE_WAYLAND_EGL)
+ #include <EGL/egl.h>
+ #include <EGL/eglext.h>
++#include <weston-egl-ext.h>
+ #if defined (WESTEROS_PLATFORM_RPI)
+ #include <bcm_host.h>
+ #endif
+@@ -63,8 +64,8 @@
+ #define MAX_NESTED_NAME_LEN (32)
+ 
+ #define DEFAULT_FRAME_RATE (60)
+-#define DEFAULT_OUTPUT_WIDTH (1280)
+-#define DEFAULT_OUTPUT_HEIGHT (720)
++#define DEFAULT_OUTPUT_WIDTH (1920)
++#define DEFAULT_OUTPUT_HEIGHT (1080)
+ #define DEFAULT_NESTED_WIDTH (1280)
+ #define DEFAULT_NESTED_HEIGHT (720)
+ 
+diff --git a/westeros-render-embedded.cpp b/westeros-render-embedded.cpp
+index 767491e..459c040 100644
+--- a/westeros-render-embedded.cpp
++++ b/westeros-render-embedded.cpp
+@@ -28,6 +28,7 @@
+ #if defined (WESTEROS_PLATFORM_EMBEDDED) || defined (WESTEROS_HAVE_WAYLAND_EGL)
+   #include <GLES2/gl2.h>
+   #include <GLES2/gl2ext.h>
++  #include <weston-egl-ext.h>
+ #else  
+   #include <GL/glew.h>
+   #include <GL/gl.h>
+diff --git a/westeros-render-gl.cpp b/westeros-render-gl.cpp
+index 6cbc3f0..0f56dec 100644
+--- a/westeros-render-gl.cpp
++++ b/westeros-render-gl.cpp
+@@ -27,6 +27,7 @@
+ #if defined (WESTEROS_PLATFORM_EMBEDDED) || defined (WESTEROS_HAVE_WAYLAND_EGL)
+   #include <GLES2/gl2.h>
+   #include <GLES2/gl2ext.h>
++  #include <weston-egl-ext.h>
+ #else  
+   #include <GL/glew.h>
+   #include <GL/gl.h>
+@@ -1177,8 +1178,8 @@ static bool wstRendererGLSetupEGL( WstRendererGL *renderer )
+    attr[i++]= GREEN_SIZE;
+    attr[i++]= EGL_BLUE_SIZE;
+    attr[i++]= BLUE_SIZE;
+-   attr[i++]= EGL_DEPTH_SIZE;
+-   attr[i++]= DEPTH_SIZE;
++   attr[i++]= EGL_ALPHA_SIZE;
++   attr[i++]= ALPHA_SIZE;
+    attr[i++]= EGL_STENCIL_SIZE;
+    attr[i++]= 0;
+    attr[i++]= EGL_SURFACE_TYPE;
+diff --git a/westeros-render.cpp b/westeros-render.cpp
+index a303df7..517ce0d 100644
+--- a/westeros-render.cpp
++++ b/westeros-render.cpp
+@@ -27,8 +27,8 @@
+ #include "westeros-nested.h"
+ #include "westeros-render.h"
+ 
+-#define DEFAULT_OUTPUT_WIDTH (1280)
+-#define DEFAULT_OUTPUT_HEIGHT (720)
++#define DEFAULT_OUTPUT_WIDTH (1920)
++#define DEFAULT_OUTPUT_HEIGHT (1080)
+ 
+ #define WESTEROS_UNUSED(x) ((void)(x))
+ 

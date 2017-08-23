@@ -1,0 +1,22 @@
+diff --git a/Makefile.am b/Makefile.am
+index 54c9123..9732bf3 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -34,7 +34,7 @@ endif
+ 
+ if HAVE_WAYLAND_EGL
+ AM_CXXFLAGS += -DWESTEROS_HAVE_WAYLAND_EGL
+-WSTEGL_LIBS= -lwayland-egl -lGLESv2
++WSTEGL_LIBS= -lwayland-egl -lGLESv2 -lmali
+ else
+ WSTEGL_LIBS= -lwesteros_egl
+ endif
+@@ -87,7 +87,7 @@ endif
+ if !HAVE_GLEW
+ westeros_LDFLAGS += -lEGL -lwesteros_gl
+ if HAVE_WAYLAND_EGL
+-westeros_LDFLAGS += -lGLESv2
++westeros_LDFLAGS += -lGLESv2 -lmaliwlsrv
+ endif
+ endif
+ 

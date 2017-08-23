@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-WESTEROS_VERSION = 87bc367344f7aab820b74e8fd01f4cf104807ab8
+WESTEROS_VERSION = d89b9b1a26d39e073a42e8d792cbd840c4757a45
 WESTEROS_SITE_METHOD = git
 WESTEROS_SITE = git://github.com/rdkcmf/westeros
 WESTEROS_INSTALL_STAGING = YES
@@ -23,16 +23,18 @@ WESTEROS_CONF_OPTS = \
 
 
 ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
-WESTEROS_CONF_OPTS += \
-	--enable-xdgv4=yes
-WESTEROS_CONF_ENV += CXXFLAGS="$(TARGET_CXXFLAGS) -DWESTEROS_PLATFORM_RPI -DWESTEROS_INVERTED_Y -DBUILD_WAYLAND -I${STAGING_DIR}/usr/include/interface/vmcs_host/linux"
-WESTEROS_LDFLAGS += -lEGL -lGLESv2 -lbcm_host
+	WESTEROS_CONF_OPTS += \
+		--enable-xdgv4=yes
+	WESTEROS_CONF_ENV += CXXFLAGS="$(TARGET_CXXFLAGS) -DWESTEROS_PLATFORM_RPI -DWESTEROS_INVERTED_Y -DBUILD_WAYLAND -I${STAGING_DIR}/usr/include/interface/vmcs_host/linux"
+	WESTEROS_LDFLAGS += -lEGL -lGLESv2 -lbcm_host
 else ifeq ($(BR2_PACKAGE_HAS_NEXUS),y)
-WESTEROS_CONF_ENV += CXXFLAGS="$(TARGET_CXXFLAGS) -DWESTEROS_PLATFORM_EMBEDDED -I${STAGING_DIR}/usr/include/refsw"
+	WESTEROS_CONF_OPTS += \
+		--enable-xdgv4=yes
+	WESTEROS_CONF_ENV += CXXFLAGS="$(TARGET_CXXFLAGS) -I${STAGING_DIR}/usr/include/refsw"
 else ifeq ($(BR2_PACKAGE_LIBDRM),y)
-WESTEROS_CONF_OPTS += \
-	--enable-xdgv5=yes
-WESTEROS_CONF_ENV += CXXFLAGS="$(TARGET_CXXFLAGS) -DWESTEROS_PLATFORM_DRM -I${STAGING_DIR}/usr/include/interface/vmcs_host/linux"
+	WESTEROS_CONF_OPTS += \
+		--enable-xdgv5=yes
+	WESTEROS_CONF_ENV += CXXFLAGS="$(TARGET_CXXFLAGS) -DWESTEROS_PLATFORM_DRM -I${STAGING_DIR}/usr/include/interface/vmcs_host/linux"
 endif # BR2_PACKAGE_WESTEROS_SOC_RPI
 
 

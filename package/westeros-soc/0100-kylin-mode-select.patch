@@ -1,0 +1,65 @@
+diff --git a/drm/westeros-gl/westeros-gl.c b/drm/westeros-gl/westeros-gl.c
+index 8608c47..72f8011 100644
+--- a/drm/westeros-gl/westeros-gl.c
++++ b/drm/westeros-gl/westeros-gl.c
+@@ -23,6 +23,7 @@
+ #include <gbm.h>
+ #include <xf86drm.h>
+ #include <xf86drmMode.h>
++#define EGL_EGLEXT_PROTOTYPES
+ #include <GLES/gl.h>
+ #include <EGL/egl.h>
+ #include <EGL/eglext.h>
+@@ -37,8 +38,8 @@
+ // Defaulting Page flip usage as pageflipping error is addressed
+ #define USE_PAGEFLIP
+ #define DEFAULT_CARD "/dev/dri/card0"
+-#define DEFAULT_MODE_WIDTH (1280)
+-#define DEFAULT_MODE_HEIGHT (720)
++#define DEFAULT_MODE_WIDTH (1920)
++#define DEFAULT_MODE_HEIGHT (1080)
+ 
+ typedef EGLDisplay (*PREALEGLGETDISPLAY)(EGLNativeDisplayType);
+ typedef EGLSurface (*PREALEGLCREATEWINDOWSURFACE)(EGLDisplay, 
+@@ -332,7 +333,7 @@ void* WstGLCreateNativeWindow( WstGLCtx *ctx, int x, int y, int width, int heigh
+          nativeWindow= gbm_surface_create(ctx->gbm, 
+                                           width, 
+                                           height,
+-                                          GBM_FORMAT_XRGB8888,
++                                          GBM_FORMAT_ARGB8888,
+                                           GBM_BO_USE_SCANOUT | GBM_BO_USE_RENDERING);
+          if ( nativeWindow )
+          {
+@@ -523,7 +524,7 @@ static void swapDRMBuffers(void* nativeBuffer)
+                    * TODO: Support different buffer types. Currently hardcoded to 24bpp
+                    */
+                   ret= drmModeAddFB( g_wstCtx->drmFd, g_wstCtx->modeInfo->hdisplay, g_wstCtx->modeInfo->vdisplay,
+-                                     24, 32, stride, handle, &fb_id );
++                                     32, 32, stride, handle, &fb_id );
+                   if ( ret )
+                   {
+                      printf( "westeros_gl: WstGLSwapBuffers: drmModeAddFB error: %d errno %d\n", ret, errno );
+@@ -636,7 +637,7 @@ static bool setupDRM( WstGLCtx *ctx )
+    drmModeRes *res= 0;
+    drmModeConnector *conn= 0;
+    drmModeCrtc *crtc= 0;
+-   int i, mi= 0;
++   int i, mi= -1;
+    
+    card= DEFAULT_CARD;
+    
+@@ -728,8 +729,13 @@ static bool setupDRM( WstGLCtx *ctx )
+            (conn->modes[i].vdisplay == DEFAULT_MODE_HEIGHT) && 
+            (conn->modes[i].type & DRM_MODE_TYPE_DRIVER) )
+       {       
+-         mi= i;
++         if (mi == -1) /* not selected yet */
++           mi= i;
+       }       
++      else if (conn->modes[i].type & DRM_MODE_TYPE_PREFERRED)
++      {
++         mi= i;
++      }
+    }
+    printf("westeros_gl: choosing mode: %d\n", mi );
+    ctx->modeInfo= &conn->modes[mi];
